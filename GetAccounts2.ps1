@@ -11,7 +11,7 @@ $Region             = 'us-east-1'
 $DesiredStatus      = 'ACTIVE' # Valid Options are ACTIVE and SUSPENDED
 
 $homedir = "C:\src\"
-$debugfile = $homedir+"debug.txt"
+$debugfile = $homedir+"GetAccouts2Debug.txt"
 #$fullpath = $homedir+"accounts.txt"
 $acctfile = $homedir+"accounts.txt"
 $fullpathcntb4 = $homedir+"acctCountb4.txt"
@@ -28,7 +28,7 @@ $AssumeRoleResponse = Use-STSRole -RoleArn $RoleARN -RoleSessionName "$RoleSessi
 $Creds              = $AssumeRoleResponse.Credentials
 
 
- if ($debuglvl -ge 1 ) {Add-Content -Path $debugfile  -Value "getting accounts" -Encoding ASCII}
+ if ($debuglvl -ge 2 ) {Add-Content -Path $debugfile  -Value "getting accounts" -Encoding ASCII}
 # Obtain the Account list
 $AWSAccountList = Get-ORGAccountList -Credential $Creds | Sort-Object -Property Name -Descending
 
@@ -207,7 +207,7 @@ for($a=0; $a -le $ami.Count -1 ; $a++){
 }
 
 # Update the account count
-$Accounts.Count >$fullpathcnt
+$Accounts.Count > $fullpathcntb4
  Add-Content -Path $debugfile  -Value "count updated" -Encoding ASCII
 }
 
